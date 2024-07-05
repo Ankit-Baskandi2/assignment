@@ -1,0 +1,58 @@
+<div mat-dialog-content>
+  <form [formGroup]="formDetails">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Select Course</mat-label>
+      <mat-select formControlName="courseName" [(ngModel)]="subjectDetailsObj.courseName">
+        <mat-option *ngFor="let c of dataofCourse" [value]="c.courseName">{{
+          c.courseName
+          }}</mat-option>
+      </mat-select>
+      <span
+      *ngIf="getControl('courseName')?.errors && (getControl('courseName')?.touched ||
+      getControl('courseName')?.dirty)">
+      <mat-error>{{errorMessage()}}</mat-error>
+    </span>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Subject Name</mat-label>
+      <input matInput formControlName="subjectName" placeholder="Enter duration"
+        [(ngModel)]="subjectDetailsObj.subjectName" (blur)="updateErrorMessage()" />
+        <span
+        *ngIf="getControl('subjectName')?.errors && (getControl('subjectName')?.touched ||
+        getControl('subjectName')?.dirty)">
+        <mat-error>{{errorMessage()}}</mat-error>
+      </span>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Semester</mat-label>
+      <input matInput formControlName="sem" placeholder="Enter duration" [(ngModel)]="subjectDetailsObj.semester"
+        (blur)="updateErrorMessage()" />
+      <span
+        *ngIf="getControl('sem')?.errors && (getControl('sem')?.touched ||
+        getControl('sem')?.dirty)">
+        <mat-error>{{errorMessage()}}</mat-error>
+      </span>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Marks</mat-label>
+      <input matInput formControlName="marks" placeholder="Enter duration" [(ngModel)]="subjectDetailsObj.marks"
+        (blur)="updateErrorMessage()" />
+        <span
+        *ngIf="getControl('marks')?.errors && (getControl('marks')?.touched ||
+        getControl('marks')?.dirty)">
+        <mat-error>{{errorMessage()}}</mat-error>
+      </span>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="cancel()">Back</button>
+  <button mat-raised-button color="primary" [disabled]="!formDetails.valid"
+    (click)="currentId === 0 ? register() : update()">
+    {{ currentId === 0 ? "Save" : "Update" }}
+  </button>
+</div>
+

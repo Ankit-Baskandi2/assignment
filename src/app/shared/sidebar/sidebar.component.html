@@ -1,0 +1,34 @@
+<mat-nav-list>
+  <div class="logo py-4">
+    <img src="../../assets/company.svg" alt="company logo" />
+  </div>
+  <mat-divider></mat-divider>
+  <h2 matSubheader class="mt-2 text-white">College Management System</h2>
+  <a
+    mat-list-item
+    routerLinkActive="list-item-active"
+    class="text-white"
+    routerLink="/feature/user/dashboard/home"
+  >
+    <mat-icon class="text-white">home</mat-icon>
+    <span class="text-white">Home</span>
+  </a>
+  <a
+    mat-list-item
+    routerLinkActive="list-item-active"
+    class="text-white"
+    routerLink="/feature/user/course/addcourse"
+  >
+    <mat-icon class="text-white">dashboard</mat-icon>
+    <span class="text-white">Add Course</span>
+  </a>
+  <a
+    mat-list-item
+    routerLinkActive="list-item-active"
+    class="text-white"
+    routerLink="/feature/user/subject/addsubject"
+  >
+    <mat-icon class="text-white">dashboard</mat-icon>
+    <span class="text-white">Add Subject</span>
+  </a>
+</mat-nav-list>

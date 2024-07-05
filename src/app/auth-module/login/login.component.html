@@ -1,0 +1,99 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <h1 class="text-center text-primary">Login Form</h1>
+      <form [formGroup]="loginDetails" (submit)="displayingLoginDetails()">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            placeholder="Enter email"
+            formControlName="email"
+          />
+        </div>
+        <div
+          *ngIf="
+            check('email')?.errors &&
+            (check('email')?.touched || check('email')?.dirty)
+          "
+        >
+          <small
+            class="text-danger"
+            *ngIf="check('email')?.errors?.['required']"
+            >Email is required</small
+          >
+          <small class="text-danger" *ngIf="check('email')?.errors?.['email']"
+            >Invalid Email</small
+          >
+        </div>
+
+        <div class="form-group main-eye">
+          <label for="exampleInputPassword1">Password</label>
+          <input
+            [type]="eyeOpen ? 'text' : 'password'"
+            class="form-control"
+            id="exampleInputPassword1"
+            placeholder="Password"
+            formControlName="password"
+          />
+
+          <div
+            class="eye-open"
+            *ngIf="!eyeOpen"
+            (click)="togglePasswordVisibility()"
+          >
+            <img src="../../assets/eye-slash.svg" alt="just" />
+          </div>
+          <div
+            class="eye-open"
+            *ngIf="eyeOpen"
+            (click)="togglePasswordVisibility()"
+          >
+            <img src="../../assets/eye.svg" alt="just" />
+          </div>
+        </div>
+
+        <div
+          *ngIf="
+            check('password')?.errors &&
+            (check('password')?.touched || check('password')?.dirty)
+          "
+        >
+          <small
+            class="text-danger"
+            *ngIf="check('password')?.errors?.['required']"
+            >Password is required</small
+          >
+          <small
+            class="text-danger"
+            *ngIf="check('password')?.errors?.['pattern']"
+            >Password must consist of Upper Case, Lower Case, Special Symbol,
+            Number, Minimum 8 character</small
+          >
+        </div>
+
+        <div class="text-center">
+          <button
+            type="submit"
+            [disabled]="!loginDetails.valid"
+            class="btn btn-primary mt-3"
+          >
+            Login
+          </button>
+          <div>
+            <small class="forgot" aria-disabled="true"
+              ><a
+                class="text-danger mt-2 pe-auto"
+                routerLink="/auth/forgotPassword"
+                >Forget Password?</a
+              ></small
+            >
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

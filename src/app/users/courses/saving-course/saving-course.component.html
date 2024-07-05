@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>Add Course</h1>
+<div mat-dialog-content>
+  <form [formGroup]="formDetails">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Course Name</mat-label>
+      <input
+        matInput
+        formControlName="course"
+        placeholder="Enter course name"
+        [(ngModel)]="courseDetailsObj.courseName"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Duration</mat-label>
+      <input
+        matInput
+        formControlName="time"
+        placeholder="Enter duration"
+        [(ngModel)]="courseDetailsObj.duration"
+      />
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="cancel()">Back</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="currentId === 0 ? register() : update()"
+  >
+    {{ currentId === 0 ? "Save" : "Update" }}
+  </button>
+</div>

@@ -1,0 +1,17 @@
+.forgot a {
+  cursor: pointer;
+}
+
+.main-eye {
+  position: relative;
+}
+
+.eye-open {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 10px;
+  top: 69%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}

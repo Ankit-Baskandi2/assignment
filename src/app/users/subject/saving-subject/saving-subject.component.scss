@@ -1,0 +1,28 @@
+/* Increase the size of the dialog container */
+.mat-dialog-container {
+  width: 800px; /* Adjust width as needed */
+  height: 600px; /* Adjust height as needed */
+  max-width: none !important; /* Ensure max width is not limited */
+  max-height: none !important; /* Ensure max height is not limited */
+}
+
+/* Styles for form fields to make them larger */
+.large-form-field {
+  font-size: 1.2em; /* Increase font size */
+  width: 100%; /* Ensure the form field takes up full width */
+}
+
+/* Padding for grid tiles for better spacing */
+mat-grid-tile {
+  padding: 16px; /* Increase padding for better spacing */
+}
+
+/* Additional padding for the dialog content */
+.large-dialog-content {
+  padding: 20px; /* Add padding around the content */
+}
+
+/* Ensure the form fields are full width */
+.full-width {
+  width: 100%;
+}
