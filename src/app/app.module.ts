@@ -10,6 +10,7 @@ import {
 } from '@angular/platform-browser/animations';
 import { UsersModule } from './users/users.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,7 @@ import { MatDialogModule } from '@angular/material/dialog';
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     }),
+    HttpClientModule,
   ],
   providers: [provideToastr()],
   bootstrap: [AppComponent],
