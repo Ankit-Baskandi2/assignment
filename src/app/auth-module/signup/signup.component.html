@@ -122,7 +122,7 @@
             <label for="country">Select Country</label>
             <mat-form-field class="w-100">
               <mat-select formControlName="country">
-                <mat-option *ngFor="let c of country" [value]="c.id">{{
+                <mat-option *ngFor="let c of country" [value]="c.name">{{
                   c.name
                 }}</mat-option>
               </mat-select>
@@ -144,7 +144,7 @@
             <label for="state">Select State</label>
             <mat-form-field class="w-100">
               <mat-select formControlName="state">
-                <mat-option *ngFor="let c of state" [value]="c.id">{{
+                <mat-option *ngFor="let c of state" [value]="c.name">{{
                   c.name
                 }}</mat-option>
               </mat-select>
@@ -169,8 +169,8 @@
             aria-label="Select an option"
             formControlName="gender"
           >
-            <mat-radio-button value="Male">Male</mat-radio-button>
-            <mat-radio-button value="Female">Female</mat-radio-button>
+            <mat-radio-button [value]="true">Male</mat-radio-button>
+            <mat-radio-button [value]="false">Female</mat-radio-button>
           </mat-radio-group>
           <div
             *ngIf="

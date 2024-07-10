@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -7,6 +8,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfirmedValiator } from 'src/app/confiremed.validator';
+import { RegisterationService } from '../authService/registeration.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup',
@@ -17,7 +20,12 @@ export class SignupComponent implements OnInit {
   arr: any[] = [];
   eyeOpen: boolean = false;
 
-  constructor(private _fb: FormBuilder, private _route: Router) {}
+  constructor(
+    private _fb: FormBuilder,
+    private _route: Router,
+    private service: RegisterationService,
+    private toaster: ToastrService
+  ) {}
 
   country: any[] = [
     { id: 1, name: 'India' },
@@ -44,9 +52,9 @@ export class SignupComponent implements OnInit {
           [Validators.email, Validators.required, Validators.maxLength(50)],
         ],
         phoneNumber: ['', [Validators.required, Validators.maxLength(10)]],
-        country: [undefined, [Validators.required]],
-        state: [undefined, [Validators.required]],
-        gender: ['', [Validators.required]],
+        country: ['', [Validators.required]],
+        state: ['', [Validators.required]],
+        gender: [1, [Validators.required]],
         password: [
           '',
           [
@@ -87,15 +95,26 @@ export class SignupComponent implements OnInit {
   //Submit Funtion
   displayRegisterationData() {
     if (this.registerDetails.valid) {
-      // debugger;
-      // let data = this.registerDetails.value.email;
-      // localStorage.setItem('email', data);
-      // data = this.registerDetails.value.password;
-      // localStorage.setItem('password', data);
-      let data = this.registerDetails.value;
-      this.arr.push(data);
-      localStorage.setItem('details', JSON.stringify(this.arr));
-      this._route.navigate(['auth/login']);
+      const formValue = { ...this.registerDetails.value };
+      delete formValue.conformPassword;
+
+      this.service.saveSignUpDetails(formValue).subscribe({
+        next: (res: any) => {
+          if (res == 2) {
+            this.toaster.success('Success', 'Data Saved Successfully');
+            this._route.navigate(['auth/login']);
+          } else {
+            this.toaster.error('error', 'Something Went Wrong');
+          }
+        },
+        error: (error: HttpErrorResponse) => {
+          this.toaster.error('error', 'Something Went Wrong');
+        },
+      });
+      //let data = this.registerDetails.value;
+      //this.arr.push(data);
+      //localStorage.setItem('details', JSON.stringify(this.arr));
+      //this._route.navigate(['auth/login']);
     } else {
       this.registerDetails.markAllAsTouched();
     }

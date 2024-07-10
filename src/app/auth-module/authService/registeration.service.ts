@@ -14,4 +14,11 @@ export class RegisterationService {
       data
     );
   }
+
+  saveSignUpDetails(data: any): Observable<any> {
+    return this.http.post(
+      'https://localhost:7047/api/UserSignUp/SavingSignUpDetails',
+      data
+    );
+  }
 }
