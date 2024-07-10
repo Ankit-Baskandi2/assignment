@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { RegisterationService } from '../authService/registeration.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +18,9 @@ export class LoginComponent implements OnInit {
     private _router: Router,
     private toaster: ToastrService,
     private service: RegisterationService
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   loginDetails = this._fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -41,29 +42,29 @@ export class LoginComponent implements OnInit {
   displayingLoginDetails() {
     if (this.loginDetails.valid) {
       this.service.loginCheck(this.loginDetails.value).subscribe(
-        (val) => {
-          if (val) {
-            localStorage.setItem(
-              'Bearer',
-              'jfkdf343jkd2332kjdkjfd343e434jjf34434lkjfdjsfj'
-            );
-            this.toaster.success('Successfully Login', 'Success');
-            this._router.navigate(['feature/']);
-          } else {
-            this.toaster.error('Incorrect Email or Password', 'Error');
-          }
-        },
-        (error) => {
-          if (error.status === 401) {
-            this.toaster.error(
-              'Unauthorized: Incorrect Email or Password',
-              'Error'
-            );
-          } else {
-            this.toaster.error('An error occurred. Please try again.', 'Error');
+        {
+          next: (res: any) => {
+            if (res) {
+              localStorage.setItem(
+                'Bearer',
+                'jfkdf343jkd2332kjdkjfd343e434jjf34434lkjfdjsfj'
+              );
+              this.toaster.success('Successfully Login', 'Success');
+              this._router.navigate(['feature/']);
+            }
+          },
+          error: (error: HttpErrorResponse) => {
+            if (error.status === 401) {
+              this.toaster.error(
+                'Unauthorized: Incorrect Email or Password',
+                'Error'
+              );
+            } else {
+              this.toaster.error('An error occurred. Please try again.', 'Error');
+            }
           }
         }
-      );
+      )
     } else {
       this.loginDetails.markAllAsTouched();
     }
