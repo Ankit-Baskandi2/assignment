@@ -11,9 +11,11 @@ import {
 import { UsersModule } from './users/users.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LoaderComponent } from './loaderComponent/loader/loader.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LoaderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -26,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
       preventDuplicates: true,
     }),
     HttpClientModule,
+    MatProgressSpinnerModule,
   ],
   providers: [provideToastr()],
   bootstrap: [AppComponent],
