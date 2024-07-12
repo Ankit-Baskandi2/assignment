@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
       this.service.loginCheck(this.loginDetails.value).subscribe(
         {
           next: (res: any) => {
-            if (res) {
+            if (res.statusCode == 200) {
               localStorage.setItem(
                 'Bearer',
                 'jfkdf343jkd2332kjdkjfd343e434jjf34434lkjfdjsfj'

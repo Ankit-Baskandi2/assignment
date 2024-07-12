@@ -100,11 +100,11 @@ export class SignupComponent implements OnInit {
 
       this.service.saveSignUpDetails(formValue).subscribe({
         next: (res: any) => {
-          if (res == 2) {
-            this.toaster.success('Success', 'Data Saved Successfully');
+          if (res.statusCode == 200) {
+            this.toaster.success('Success', res.message);
             this._route.navigate(['auth/login']);
           } else {
-            this.toaster.error('error', 'Something Went Wrong');
+            this.toaster.error('error', res.message);
           }
         },
         error: (error: HttpErrorResponse) => {
