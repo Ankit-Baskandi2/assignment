@@ -1,32 +1,43 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { finalize, Observable } from 'rxjs';
+import { BehaviorSubject, finalize, Observable } from 'rxjs';
 import { LoaderService } from 'src/app/loaderComponent/loader.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RegisterationService {
-  constructor(private http: HttpClient, private loaderService: LoaderService) {}
+  constructor(private http: HttpClient) {}
+
+  private loading = new BehaviorSubject<boolean>(false);
+  isLoading = this.loading.asObservable();
+
+  show() {
+    this.loading.next(true);
+  }
+
+  hide() {
+    this.loading.next(false);
+  }
 
   loginCheck(data: any): Observable<any> {
-    this.loaderService.show();
+    this.show();
     return this.http
       .post('https://localhost:7047/api/UserSignUp/UserValidation', data)
       .pipe(
         finalize(() => {
-          this.loaderService.hide();
+          this.hide();
         })
       );
   }
 
   saveSignUpDetails(data: any): Observable<any> {
-    this.loaderService.show();
+    this.show();
     return this.http
       .post('https://localhost:7047/api/UserSignUp/SavingSignUpDetails', data)
       .pipe(
         finalize(() => {
-          this.loaderService.hide();
+          this.hide();
         })
       );
   }

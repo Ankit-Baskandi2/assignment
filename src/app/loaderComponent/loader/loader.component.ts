@@ -6,13 +6,12 @@ import { LoaderService } from '../loader.service';
   templateUrl: './loader.component.html',
   styleUrls: ['./loader.component.scss'],
 })
-export class LoaderComponent implements OnInit {
-  isLoading = false;
-  constructor(private loaderService: LoaderService) {}
-
-  ngOnInit(): void {
-    this.loaderService.isLoading.subscribe((loading) => {
-      this.isLoading = loading;
-    });
-  }
+export class LoaderComponent {
+  // isLoading = false;
+  // constructor(private loaderService: LoaderService) {}
+  // ngOnInit(): void {
+  //   this.loaderService.isLoading.subscribe((loading) => {
+  //     this.isLoading = loading;
+  //   });
+  // }
 }

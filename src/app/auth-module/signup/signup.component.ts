@@ -17,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
+  isLoading = false;
   arr: any[] = [];
   eyeOpen: boolean = false;
 
@@ -43,6 +44,9 @@ export class SignupComponent implements OnInit {
   registerDetails: FormGroup = new FormGroup({});
 
   ngOnInit(): void {
+    this.service.isLoading.subscribe((loading) => {
+      this.isLoading = loading;
+    });
     this.registerDetails = this._fb.group(
       {
         firstName: ['', [Validators.required]],
@@ -100,15 +104,15 @@ export class SignupComponent implements OnInit {
 
       this.service.saveSignUpDetails(formValue).subscribe({
         next: (res: any) => {
-          if (res.statusCode == 200) {
+          if (res.statusCode === 200) {
             this.toaster.success('Success', res.message);
             this._route.navigate(['auth/login']);
           } else {
             this.toaster.error('error', res.message);
           }
         },
-        error: (error: HttpErrorResponse) => {
-          this.toaster.error('error', 'Something Went Wrong');
+        error: (error: any) => {
+          this.toaster.error('error', error.message);
         },
       });
       //let data = this.registerDetails.value;
