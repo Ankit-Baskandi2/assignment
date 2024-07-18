@@ -102,6 +102,8 @@ export class SignupComponent implements OnInit {
       const formValue = { ...this.registerDetails.value };
       delete formValue.conformPassword;
 
+      console.log(this.registerDetails.value);
+
       this.service.saveSignUpDetails(formValue).subscribe({
         next: (res: any) => {
           if (res.statusCode === 200) {
@@ -140,4 +142,5 @@ export class SignupComponent implements OnInit {
   togglePasswordVisibility() {
     this.eyeOpen = !this.eyeOpen;
   }
+
 }

@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { ToastrModule } from 'ngx-toastr';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @NgModule({
   declarations: [SignupComponent, LoginComponent, ForgetPasswordComponent],
@@ -31,6 +32,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
       preventDuplicates: true,
     }),
     MatProgressSpinnerModule,
+    NgxMaskDirective
   ],
 })
 export class AuthModuleModule {}
