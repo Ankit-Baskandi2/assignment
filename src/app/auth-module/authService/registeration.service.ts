@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, finalize, Observable } from 'rxjs';
-import { LoaderService } from 'src/app/loaderComponent/loader.service';
 
 @Injectable({
   providedIn: 'root',

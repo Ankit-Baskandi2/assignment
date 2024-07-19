@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Inject, OnInit, signal } from '@angular/core';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AddcourseComponent } from '../addcourse/addcourse.component';
 
 @Component({
   selector: 'app-saving-course',
@@ -11,41 +10,37 @@ import { AddcourseComponent } from '../addcourse/addcourse.component';
   styleUrls: ['./saving-course.component.scss'],
 })
 export class SavingCourseComponent implements OnInit {
-  cancel() {
-    this.dialog.closeAll();
-  }
+  errorMessage = signal('');
   currentId: number = 0;
 
   constructor(
-    private activateroute: ActivatedRoute,
     private toaster: ToastrService,
     private router: Router,
     private _fb: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public res: any
   ) {
     this.courseArray = [];
-    this.activateroute.params.subscribe((res: any) => {
-      // debugger;
-      if (res.id) {
-        this.currentId = res.id;
-        if (this.currentId !== 0) {
-          let localDataStoarge = JSON.parse(
-            localStorage.getItem('courseDetails') || ''
-          );
-          const currentRecord = localDataStoarge.find(
-            (m: any) => m.id == this.currentId
-          );
-          if (currentRecord !== undefined) {
-            this.courseDetailsObj = currentRecord;
-          }
+    debugger;
+    if (res.id != null) {
+      this.currentId = res.id;
+      if (this.currentId !== 0) {
+        let localDataStoarge = JSON.parse(
+          localStorage.getItem('courseDetails') || ''
+        );
+        const currentRecord = localDataStoarge.find(
+          (m: any) => m.id == this.currentId
+        );
+        if (currentRecord !== undefined) {
+          this.courseDetailsObj = currentRecord;
         }
       }
-    });
+    }
   }
 
   formDetails = this._fb.group({
-    course: ['', []],
-    time: ['', []],
+    course: ['', [Validators.required]],
+    time: ['', [Validators.required]],
   });
 
   courseDetailsObj: any = {
@@ -68,8 +63,15 @@ export class SavingCourseComponent implements OnInit {
     return randomNum;
   }
 
+  cancel() {
+    this.dialog.closeAll();
+  }
+
+  getControl(name: any): AbstractControl | null {
+    return this.formDetails.get(name);
+  }
+
   register() {
-    debugger;
     const localData = localStorage.getItem('courseDetails');
 
     let obj: any = {
@@ -77,6 +79,7 @@ export class SavingCourseComponent implements OnInit {
       courseName: '',
       duration: '',
     };
+
     console.log('checking', this.formDetails.controls.course.value);
     console.log('Checking', this.formDetails.controls.time.value);
     obj.courseName = this.formDetails.value.course;
@@ -94,13 +97,11 @@ export class SavingCourseComponent implements OnInit {
     }
 
     location.reload();
-    // this.router.navigate(['feature/user/course/addcourse']);
     this.toaster.success('success', 'Successfully Saved');
     this.cancel();
   }
 
   update() {
-    // debugger;
     const currentRecord = this.courseArray.find((m) => m.id == this.currentId);
 
     if (currentRecord != undefined) {
@@ -110,6 +111,19 @@ export class SavingCourseComponent implements OnInit {
       localStorage.setItem('courseDetails', JSON.stringify(this.courseArray));
       this.toaster.success('success', 'Successfully Updated!');
       this.router.navigate(['feature/user/course/addcourse']);
+      this.cancel()
+    }
+  }
+
+  updateErrorMessage() {
+    if (this.formDetails.controls.course.hasError('required')) {
+      this.errorMessage.set("Course Name is required");
+    }
+    else if (this.formDetails.controls.time.hasError('required')) {
+      this.errorMessage.set("Time field is requied");
+    }
+    else {
+      this.errorMessage.set('');
     }
   }
 }

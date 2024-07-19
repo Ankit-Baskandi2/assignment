@@ -1,11 +1,5 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfirmedValiator } from 'src/app/confiremed.validator';
 import { RegisterationService } from '../authService/registeration.service';
@@ -51,23 +45,12 @@ export class SignupComponent implements OnInit {
       {
         firstName: ['', [Validators.required]],
         lastName: ['', [Validators.required]],
-        email: [
-          '',
-          [Validators.email, Validators.required, Validators.maxLength(50)],
-        ],
+        email: ['', [Validators.email, Validators.required, Validators.maxLength(50)],],
         phoneNumber: ['', [Validators.required, Validators.maxLength(10)]],
         country: ['', [Validators.required]],
         state: ['', [Validators.required]],
         gender: [1, [Validators.required]],
-        password: [
-          '',
-          [
-            Validators.required,
-            Validators.pattern(
-              '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$'
-            ),
-          ],
-        ],
+        password: ['',[Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$')],],
         conformPassword: ['', [Validators.required]],
       },
       { validator: ConfirmedValiator('password', 'conformPassword') }
@@ -142,5 +125,4 @@ export class SignupComponent implements OnInit {
   togglePasswordVisibility() {
     this.eyeOpen = !this.eyeOpen;
   }
-
 }

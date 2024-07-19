@@ -3,9 +3,7 @@ import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
   MatDialog,
-  MatDialogRef,
 } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -41,9 +39,7 @@ export class SavingSubjectComponent {
         );
 
         if (currentRecord !== undefined) {
-
           this.subjectDetailsObj = currentRecord;
-          console.log('subjectdetails :', this.subjectDetailsObj);
         }
       }
     }

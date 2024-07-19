@@ -7,6 +7,7 @@ export function ConfirmedValiator(
   return (formGroup: FormGroup) => {
     const control = formGroup.controls[controlName];
     const matchingControl = formGroup.controls[matchingControlName];
+    
     if (
       matchingControl.errors &&
       !matchingControl.errors['confirmedValidator']

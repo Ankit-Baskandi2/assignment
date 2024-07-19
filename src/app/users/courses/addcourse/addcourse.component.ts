@@ -1,8 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-// import { MatconformdialogComponent } from 'src/app/mat/matconformdialog/matconformdialog.component';
 import { SavingCourseComponent } from '../saving-course/saving-course.component';
 
 @Component({
@@ -14,14 +12,13 @@ export class AddcourseComponent implements OnInit {
   @ViewChild('deleteDialog') deleteDialog!: TemplateRef<any>;
 
   constructor(
-    private router: Router,
     private dialog: MatDialog,
     private toaster: ToastrService
   ) { }
 
   courseArray: any[] = [];
   addCourse() {
-    this.dialog.open(SavingCourseComponent, {});
+    this.dialog.open(SavingCourseComponent, { data: { id: 0 } });
   }
 
   ngOnInit(): void {
@@ -34,20 +31,11 @@ export class AddcourseComponent implements OnInit {
   }
 
   edit(id: number) {
-    this.router.navigate(['feature/user/course/savecourse', id]);
+    // this.router.navigate(['feature/user/course/savecourse', id]);
+    this.dialog.open(SavingCourseComponent, { data: { id: id } })
   }
 
   delete(id: number) {
-    // const dialogRef = this.dialog.open(MatconformdialogComponent, {
-    //   data: {
-    //     message: 'Are you sure want to delete?',
-    //     buttonText: {
-    //       ok: 'yes',
-    //       cancel: 'No',
-    //     },
-    //   },
-    // });
-
     let dialogRef = this.dialog.open(this.deleteDialog);
 
     dialogRef.afterClosed().subscribe(result => {
@@ -60,19 +48,5 @@ export class AddcourseComponent implements OnInit {
 
       }
     })
-
-    // dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-
-    //   if (confirmed) {
-
-    //     const index = this.courseArray.findIndex((m) => m.id == id);
-    //     this.courseArray.splice(index, 1);
-    //     localStorage.setItem('courseDetails', JSON.stringify(this.courseArray));
-    //     this.toaster.success('success', 'Successfully Deleted!');
-
-    //   }
-    // });
-
-
   }
 }

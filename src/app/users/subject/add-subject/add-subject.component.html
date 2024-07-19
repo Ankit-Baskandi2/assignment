@@ -1,6 +1,8 @@
 <div class="container mt-5">
+  <div>
+    <h1 class="text-center text-primary">Subject Details</h1>
+  </div>
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>Courses</h2>
     <button class="btn btn-primary" (click)="addCourse()">+ Add Course</button>
   </div>
   <table class="table table-bordered table-hover">
@@ -28,10 +30,10 @@
         <td>{{ details.marks }}</td>
         <td>
           <button class="btn btn-sm btn-info mr-2" (click)="edit(details.id)">
-            Edit
+            <mat-icon class="text-white">edit</mat-icon>
           </button>
           <button class="btn btn-sm btn-danger" (click)="delete(details.id)">
-            Delete
+            <mat-icon class="text-white">delete</mat-icon>
           </button>
         </td>
       </tr>

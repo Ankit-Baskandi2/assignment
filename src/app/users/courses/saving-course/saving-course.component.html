@@ -8,7 +8,13 @@
         formControlName="course"
         placeholder="Enter course name"
         [(ngModel)]="courseDetailsObj.courseName"
+        (blur)="updateErrorMessage()"
       />
+      <span
+      *ngIf="getControl('course')?.errors && (getControl('course')?.touched ||
+      getControl('course')?.dirty)">
+      <mat-error>{{errorMessage()}}</mat-error>
+    </span>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
@@ -18,7 +24,13 @@
         formControlName="time"
         placeholder="Enter duration"
         [(ngModel)]="courseDetailsObj.duration"
+        (blur)="updateErrorMessage()"
       />
+      <span
+      *ngIf="getControl('time')?.errors && (getControl('time')?.touched ||
+      getControl('time')?.dirty)">
+      <mat-error>{{errorMessage()}}</mat-error>
+    </span>
     </mat-form-field>
   </form>
 </div>
